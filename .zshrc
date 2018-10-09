@@ -4,6 +4,20 @@
 # Path to your oh-my-zsh installation.
   export ZSH="/home/pmuench/.oh-my-zsh"
 
+# uploads file to aws and puts it to the ~pmuench directory
+function upload()
+{
+  command scp -i ~/aws_micro.pem $1 ec2-user@ec2-34-204-84-4.compute-1.amazonaws.com:/var/www/html/\~pmuench/ && echo "http://ec2-34-204-84-4.compute-1.amazonaws.com/~pmuench/$1"
+}
+
+# deletes a file from EC2 instance
+function delete()
+{
+  command ssh -i ~/aws_micro.pem ec2-user@ec2-34-204-84-4.compute-1.amazonaws.com "rm -f /var/www/html/\~pmuench/$1" && echo "deleted $1"
+}
+
+alias ok="ping google.com"
+#
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
